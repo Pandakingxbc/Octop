@@ -1,4 +1,4 @@
-# Octop Extension Builder
+# Octop Plugin and Skill Creator
 
 你负责创建 Octop 扩展。
 

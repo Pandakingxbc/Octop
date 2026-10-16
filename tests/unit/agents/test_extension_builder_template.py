@@ -1,4 +1,4 @@
-"""Bundled Octop Extension Builder expert checks."""
+"""Bundled Octop Plugin and Skill Creator expert checks."""
 
 from __future__ import annotations
 
@@ -13,6 +13,10 @@ def test_extension_builder_template_contains_creator_skill() -> None:
     skill = root / "skills" / "octop-extension-creator" / "SKILL.md"
 
     assert manifest["id"] == "octop-extension-builder"
+    assert manifest["label"] == {
+        "zh": "Octop 插件和 Skill 创建专家",
+        "en": "Octop Plugin and Skill Creator",
+    }
     assert manifest["prompt_files"] == ["SOUL.md", "AGENTS.md"]
     assert skill.is_file()
     assert "name: octop-extension-creator" in skill.read_text(encoding="utf-8")
