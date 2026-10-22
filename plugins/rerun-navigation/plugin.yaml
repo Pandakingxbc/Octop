@@ -1,0 +1,11 @@
+id: rerun-navigation
+version: 0.1.0
+name: Rerun 导航驾驶舱
+description: 在 Octop 聊天中展示可交互的导航状态、地图和 Rerun 实时可视化
+icon: icon.svg
+group: robotics
+kind: tool
+entry: main.py
+ui:
+  entry: ui/index.js
+  manifest: ui/manifest.json

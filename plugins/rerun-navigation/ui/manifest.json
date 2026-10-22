@@ -1,0 +1,8 @@
+{
+  "renderers": [
+    {
+      "id": "rerun_navigation",
+      "tools": ["show_navigation_cockpit", "robot_navigate_to", "robot_get_status"]
+    }
+  ]
+}

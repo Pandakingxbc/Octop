@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b8f34a'/%3E%3Cpath d='M7 22c5 0 4-11 10-11 5 0 4 8 9 8' fill='none' stroke='%23101816' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>Octop · Rerun Navigation Preview</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; color: #eaf0ec; background: #090d0b; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .shell { min-height: 100vh; display: grid; grid-template-columns: 176px minmax(0, 1fr); }
+      .rail { padding: 20px 14px; border-right: 1px solid rgba(255,255,255,.07); background: #0d1310; }
+      .brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 24px; font-size: 14px; font-weight: 800; }
+      .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; color: #263408; background: #b8f34a; }
+      .nav { padding: 9px 10px; margin-bottom: 5px; border-radius: 9px; color: #74827b; font-size: 12px; }
+      .nav.active { color: #eaf0ec; background: rgba(255,255,255,.06); }
+      .main { min-width: 0; }
+      .topbar { height: 58px; padding: 0 22px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.07); color: #85938c; font-size: 11px; }
+      .content { max-width: 1720px; margin: 0 auto; padding: 18px; }
+      .split { display: grid; grid-template-columns: minmax(320px, 390px) minmax(0, 1fr); gap: 14px; align-items: start; }
+      .pane { min-width: 0; border: 1px solid rgba(255,255,255,.07); border-radius: 18px; background: #0e1512; overflow: hidden; }
+      .pane-head { height: 52px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .pane-title { color: #e9efeb; font-size: 12px; font-weight: 800; }
+      .pane-meta { color: #708078; font-size: 10px; }
+      .chat-body { min-height: 620px; padding: 18px 15px 86px; position: relative; }
+      .message { max-width: 86%; margin-bottom: 15px; padding: 11px 13px; border-radius: 13px; color: #c9d2cd; background: rgba(255,255,255,.045); font-size: 11px; line-height: 1.65; }
+      .message.user { margin-left: auto; color: #243406; background: #b8f34a; border-bottom-right-radius: 4px; }
+      .message.agent { border-bottom-left-radius: 4px; }
+      .thinking { display: flex; align-items: center; gap: 7px; margin: 4px 0 15px; color: #718078; font-size: 10px; }
+      .thinking i { width: 6px; height: 6px; border-radius: 9px; background: #b8f34a; box-shadow: 0 0 0 4px rgba(184,243,74,.09); }
+      .composer { position: absolute; left: 14px; right: 14px; bottom: 14px; height: 52px; padding: 0 8px 0 14px; display: flex; align-items: center; gap: 9px; border: 1px solid rgba(255,255,255,.09); border-radius: 14px; color: #68776f; background: #151f1b; font-size: 11px; }
+      .composer span { flex: 1; }
+      .send { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: #273707; background: #b8f34a; font-weight: 900; }
+      .dock-body { padding: 12px; }
+      #root { width: 100%; }
+      @media (max-width: 980px) { .split { grid-template-columns: 1fr; } .chat-body { min-height: 310px; } }
+      @media (max-width: 760px) { .shell { grid-template-columns: 1fr; } .rail { display: none; } .content { padding: 10px; } .topbar { padding: 0 14px; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="rail">
+        <div class="brand"><span class="brand-mark">◈</span> OCTOP</div>
+        <div class="nav active">◉ &nbsp; 对话</div>
+        <div class="nav">◇ &nbsp; Agent</div>
+        <div class="nav">□ &nbsp; 插件</div>
+      </aside>
+      <main class="main">
+        <div class="topbar"><span>Octop / 对话 / 导航演示</span><span id="dock-status">正在打开右侧 Dock…</span></div>
+        <div class="content">
+          <div class="split">
+            <section class="pane">
+              <div class="pane-head"><span class="pane-title">Octop 对话</span><span class="pane-meta">MAIN AGENT</span></div>
+              <div class="chat-body">
+                <div class="message user">去厨房门口等我。</div>
+                <div class="thinking"><i></i><span>正在调用 show_navigation_cockpit</span></div>
+                <div class="message agent">已创建前往「厨房门口」的导航任务。右侧驾驶舱会持续显示位置、路径与任务状态。</div>
+                <div class="message user">先暂停一下。</div>
+                <div class="message agent">你可以直接在右侧操作，也可以继续在这里告诉我。</div>
+                <div class="composer"><span>继续输入指令…</span><div class="send">↑</div></div>
+              </div>
+            </section>
+            <section class="pane">
+              <div class="pane-head"><span class="pane-title">导航驾驶舱</span><span class="pane-meta">TOOL UI · LIVE DOCK</span></div>
+              <div class="dock-body"><div id="root"></div></div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="/dashboard/node_modules/react/umd/react.development.js"></script>
+    <script src="/dashboard/node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script type="module" src="./preview.js"></script>
+  </body>
+</html>
